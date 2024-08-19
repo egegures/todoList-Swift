@@ -13,12 +13,15 @@ class CategoryManager: ObservableObject {
     @Published var categories: [Category] = []
     
     private init() {
+        
         if let data = UserDefaults.standard.data(forKey: "SavedData") {
             if let decoded = try? JSONDecoder().decode([Category].self, from: data) {
                 categories = decoded
             }
         }
-        // addCategory()
+        if categories.count == 0 {
+            addCategory()
+        }
     }
     
     func addCategory() {
@@ -71,6 +74,10 @@ class CategoryManager: ObservableObject {
             }                                                          // Going
             cat.tasks.append(Task(categoryID: catID))                  // To Bottom
         }
+    }
+    
+    func sortCategoriesByFavourite() {
+        categories.sort(by: {$0.isFavourite && !$1.isFavourite})
     }
     
     func save() {

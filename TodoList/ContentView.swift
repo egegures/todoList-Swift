@@ -18,7 +18,7 @@ struct ContentView: View {
                     categoryManager.addCategory()
                     categoryManager.save()
                 }, label: {
-                    Text("New cat")
+                    Text("New category")
                 })
             }
             List {

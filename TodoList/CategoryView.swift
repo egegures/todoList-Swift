@@ -35,7 +35,16 @@ struct CategoryView: View {
                 
                 TextField("New Category", text: $category.name)
                     .frame(maxWidth: .infinity)
-                .background(Color.gray.opacity(0.2)) }
+                    .background(Color.gray.opacity(0.2))
+                
+                Image(systemName: (category.isFavourite ? "star.fill" : "star"))
+                    .foregroundStyle(Color.yellow)
+                    .onTapGesture {
+                        category.isFavourite.toggle()
+                        categoryManager.sortCategoriesByFavourite()
+                        categoryManager.save()
+                    }
+            }
             
             ForEach(category.tasks) { task in
                 TaskView(task: task)
