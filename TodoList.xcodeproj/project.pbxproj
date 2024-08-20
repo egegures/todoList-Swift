@@ -13,6 +13,8 @@
 		2503D1AE2C74901D00029E20 /* TodoListWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2503D1AD2C74901D00029E20 /* TodoListWidget.swift */; };
 		2503D1B02C74901E00029E20 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2503D1AF2C74901E00029E20 /* Assets.xcassets */; };
 		2503D1B52C74901E00029E20 /* TodoListWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 2503D1A42C74901C00029E20 /* TodoListWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		2503D1BB2C754D0D00029E20 /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2503D1BA2C754D0D00029E20 /* NotificationManager.swift */; };
+		2503D1BF2C75502E00029E20 /* NotificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2503D1BE2C75502E00029E20 /* NotificationView.swift */; };
 		25D0062B2C72852E00E28959 /* CalendarTimeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25D0062A2C72852E00E28959 /* CalendarTimeView.swift */; };
 		25D8D5232C6124290075B42A /* TodoListApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25D8D5222C6124290075B42A /* TodoListApp.swift */; };
 		25D8D5252C6124290075B42A /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25D8D5242C6124290075B42A /* ContentView.swift */; };
@@ -72,6 +74,8 @@
 		2503D1AF2C74901E00029E20 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		2503D1B12C74901E00029E20 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2503D1B22C74901E00029E20 /* TodoListWidget.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = TodoListWidget.entitlements; sourceTree = "<group>"; };
+		2503D1BA2C754D0D00029E20 /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
+		2503D1BE2C75502E00029E20 /* NotificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationView.swift; sourceTree = "<group>"; };
 		25D0062A2C72852E00E28959 /* CalendarTimeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarTimeView.swift; sourceTree = "<group>"; };
 		25D8D51F2C6124290075B42A /* TodoList.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TodoList.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		25D8D5222C6124290075B42A /* TodoListApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoListApp.swift; sourceTree = "<group>"; };
@@ -174,10 +178,12 @@
 				25D8D5292C61242B0075B42A /* Preview Content */,
 				25D8D54F2C6125450075B42A /* Category.swift */,
 				25D8D5572C6132740075B42A /* CategoryManager.swift */,
+				2503D1BA2C754D0D00029E20 /* NotificationManager.swift */,
 				25D8D5512C6125690075B42A /* Task.swift */,
 				25D8D5532C612EB50075B42A /* CategoryView.swift */,
 				25D8D5592C6139A60075B42A /* TaskView.swift */,
 				25D0062A2C72852E00E28959 /* CalendarTimeView.swift */,
+				2503D1BE2C75502E00029E20 /* NotificationView.swift */,
 			);
 			path = TodoList;
 			sourceTree = "<group>";
@@ -366,11 +372,13 @@
 				25D8D5522C6125690075B42A /* Task.swift in Sources */,
 				25D8D55A2C6139A60075B42A /* TaskView.swift in Sources */,
 				25D8D5252C6124290075B42A /* ContentView.swift in Sources */,
+				2503D1BB2C754D0D00029E20 /* NotificationManager.swift in Sources */,
 				25D8D5232C6124290075B42A /* TodoListApp.swift in Sources */,
 				25D8D5502C6125450075B42A /* Category.swift in Sources */,
 				25D0062B2C72852E00E28959 /* CalendarTimeView.swift in Sources */,
 				25D8D5542C612EB50075B42A /* CategoryView.swift in Sources */,
 				25D8D5582C6132740075B42A /* CategoryManager.swift in Sources */,
+				2503D1BF2C75502E00029E20 /* NotificationView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

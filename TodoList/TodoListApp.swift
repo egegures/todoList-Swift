@@ -13,6 +13,9 @@ struct TodoListApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .onAppear(perform: {
+                     NotificationManager.shared.requestAuthorization()
+                })
         }
     }
 }

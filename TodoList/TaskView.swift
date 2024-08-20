@@ -49,6 +49,8 @@ struct TaskView: View {
                         }
                     }
                 }
+            NotificationView(task: task)
+                .environmentObject(NotificationManager.shared)
             TextField("New task", text: $task.name)
                 .background(Color.gray.opacity(0.2))
                 .focused($isFocusedOnTitle)
