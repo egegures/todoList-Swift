@@ -123,15 +123,7 @@ class Task: Identifiable, ObservableObject, Encodable, Decodable {
     func setDate() {
         if let userSetDate = extractDate() {
             dueDate = userSetDate
-        } else {
-            dueDate = Task.endOfDayDate()
         }
-        
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "dd.MM.yy HH:mm"
-        let components = self.name.split(separator: "|").map { $0.trimmingCharacters(in: .whitespaces) }
-        self.name = (components.count == 2 ? components[0] : self.name) + " " + "|" + " " + dateFormatter.string(from: self.dueDate)
-        
     }
     
     func simplifyTitle() {

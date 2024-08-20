@@ -1,3 +1,7 @@
+/TodoListWidget/
+/TodoListTests/
+/TodoListUITests/
+
 # Xcode
 DerivedData/
 build/

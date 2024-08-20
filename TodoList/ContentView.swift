@@ -26,7 +26,6 @@ struct ContentView: View {
                     CategoryView(category: category)
                 }
             }
-            .padding()
             
         }
         .environmentObject(categoryManager)
