@@ -14,6 +14,8 @@ class Task: Identifiable, ObservableObject, Encodable, Decodable {
     @Published var dueDate: Date
     @Published var completed: Bool
     @Published var categoryID: UUID
+    @Published var isNotificationSet: Bool
+    @Published var notificationDate: Date
     
     enum CodingKeys: String, CodingKey {
         case id
@@ -21,6 +23,8 @@ class Task: Identifiable, ObservableObject, Encodable, Decodable {
         case dueDate
         case completed
         case categoryID
+        case isNotificationSet
+        case notificationDate
     }
     
     init(categoryID: UUID) {
@@ -29,6 +33,8 @@ class Task: Identifiable, ObservableObject, Encodable, Decodable {
         self.completed = false
         self.dueDate = Task.endOfDayDate()
         self.categoryID = categoryID
+        self.isNotificationSet = false
+        self.notificationDate = Task.endOfDayDate()
     }
     
     func encode(to encoder: Encoder) throws {
@@ -38,6 +44,8 @@ class Task: Identifiable, ObservableObject, Encodable, Decodable {
         try container.encode(dueDate, forKey: .dueDate)
         try container.encode(completed, forKey: .completed)
         try container.encode(categoryID, forKey: .categoryID)
+        try container.encode(isNotificationSet, forKey: .isNotificationSet)
+        try container.encode(notificationDate, forKey: .notificationDate)
     }
     
     required init(from decoder: Decoder) throws {
@@ -47,6 +55,8 @@ class Task: Identifiable, ObservableObject, Encodable, Decodable {
         dueDate = try container.decode(Date.self, forKey: .dueDate)
         completed = try container.decode(Bool.self, forKey: .completed)
         categoryID = try container.decode(UUID.self, forKey: .categoryID)
+        isNotificationSet = try container.decode(Bool.self, forKey: .isNotificationSet)
+        notificationDate = try container.decode(Date.self, forKey: .notificationDate)
     }
     
     

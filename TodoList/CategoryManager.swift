@@ -14,6 +14,13 @@ class CategoryManager: ObservableObject {
     
     private init() {
         
+        // Uncomment this to reset UserDefaults
+        
+//        UserDefaults.standard.dictionaryRepresentation().keys.forEach { key in
+//            UserDefaults.standard.removeObject(forKey: key)
+//        }
+        
+        
         if let data = UserDefaults.standard.data(forKey: "SavedData") {
             if let decoded = try? JSONDecoder().decode([Category].self, from: data) {
                 categories = decoded

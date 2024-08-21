@@ -13,28 +13,27 @@ struct NotificationView: View {
     @EnvironmentObject var ncShared: NotificationManager
     
     @State private var showMenu: Bool = false
-    @State var isSet: Bool = false
-    @State var setDate: Date = Date()
     
     var body: some View {
-        Image(systemName: (isSet ? "bell.fill" : "bell"))
+        Image(systemName: (task.isNotificationSet ? "bell.fill" : "bell"))
             .onTapGesture {
                 withAnimation {
                     showMenu.toggle()
-                    if !isSet {
-                        setDate = task.dueDate
+                    if !task.isNotificationSet {
+                        task.notificationDate = task.dueDate
                     }
                 }
             }
         if showMenu {
             VStack {
                 Text("Set notification")
-                DatePicker("", selection: $setDate)
+                DatePicker("", selection: $task.notificationDate)
                     .labelsHidden()
                 HStack {
                     Button(action: { //Unset button
-                        isSet = false
+                        task.isNotificationSet = false
                         ncShared.removeNotification(task: task)
+                        CategoryManager.shared.save()
                         withAnimation {
                             showMenu.toggle()
                         }
@@ -43,7 +42,8 @@ struct NotificationView: View {
                     })
                     
                     Button(action: { //Set button
-                        isSet = ncShared.scheduleNotification(task: task, date: setDate)
+                        task.isNotificationSet = ncShared.scheduleNotification(task: task, date: task.notificationDate)
+                        CategoryManager.shared.save()
                         withAnimation {
                             showMenu.toggle()
                         }
