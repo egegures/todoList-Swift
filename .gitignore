@@ -1,9 +1,10 @@
+Google*
 
 # Xcode
 DerivedData/
 build/
 *.xcworkspace
-*.xcodeproj/xcuserdata/
+TodoList.xcodeproj/xcuserdata/
 *.xcuserstate
 
 # CocoaPods
