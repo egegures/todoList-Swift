@@ -11,6 +11,7 @@ struct NotificationView: View {
     
     @ObservedObject var task: Task
     @EnvironmentObject var ncShared: NotificationManager
+    @EnvironmentObject var categoryManager: CategoryManager
     
     @State private var showMenu: Bool = false
     
@@ -33,7 +34,7 @@ struct NotificationView: View {
                     Button(action: { //Unset button
                         task.isNotificationSet = false
                         ncShared.removeNotification(task: task)
-                        CategoryManager.shared.save()
+                        categoryManager.saveLocal()
                         withAnimation {
                             showMenu.toggle()
                         }
@@ -43,7 +44,7 @@ struct NotificationView: View {
                     
                     Button(action: { //Set button
                         task.isNotificationSet = ncShared.scheduleNotification(task: task, date: task.notificationDate)
-                        CategoryManager.shared.save()
+                        categoryManager.saveLocal()
                         withAnimation {
                             showMenu.toggle()
                         }
@@ -57,7 +58,7 @@ struct NotificationView: View {
 }
 
 #Preview {
-    let shared = NotificationManager.shared
     return NotificationView(task: Task(categoryID: UUID()))
-        .environmentObject(shared)
+        .environmentObject(NotificationManager.shared)
+        .environmentObject(CategoryManager.shared)
 }

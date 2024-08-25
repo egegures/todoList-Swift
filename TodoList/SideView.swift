@@ -8,10 +8,11 @@ import SwiftUI
 
 struct SideView: View {
     @Binding var isOpen: Bool
+    
     @EnvironmentObject private var firebaseManager: FirebaseManager
+    @EnvironmentObject private var categoryManager: CategoryManager
     
     @State private var showingLoginView = false
-    
     var body: some View {
         ZStack {
             if isOpen {
@@ -25,16 +26,23 @@ struct SideView: View {
                 
                 HStack {
                     VStack(alignment: .leading) {
-                        Button("Sign In") {
-                            // Navigate to Sign In view
-                            showingLoginView.toggle()
+                        if firebaseManager.isLoggedIn() {
+                            Text("Hello, " + firebaseManager.getUsername()!)
+                                .padding(5)
+                            
+                            Button("Sign Out") {
+                                firebaseManager.signOut()
+                                categoryManager.clearCategories()
+                            }
+                            .padding(5)
+                        } else {
+                            Button("Sign In") {
+                                // Navigate to Sign In view
+                                showingLoginView.toggle()
+                            }
+                            .padding(5)
                         }
-                        .padding(5)
                         
-                        Button("Sign Out") {
-                            firebaseManager.signOut()
-                        }
-                        .padding(5)
                         
                         Button("Task History") {
                             // Navigate to Task History view
@@ -58,4 +66,6 @@ struct SideView: View {
 #Preview {
     @State var isOpen = true
     return SideView(isOpen: $isOpen)
+        .environmentObject(FirebaseManager.shared)
+        .environmentObject(CategoryManager.shared)
 }

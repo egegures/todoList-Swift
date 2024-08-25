@@ -9,7 +9,9 @@ import SwiftUI
 
 struct TaskView: View {
     @ObservedObject var task: Task
+    
     @EnvironmentObject var categoryManager: CategoryManager
+    @EnvironmentObject var notificationManager: NotificationManager
     
     @State private var showDeleteConfirmation = false
     @FocusState private var isFocusedOnTitle: Bool
@@ -30,14 +32,14 @@ struct TaskView: View {
             //                        task.completed.toggle()
             //                    }
             //            }
-            Image(systemName: "trash")
-                .resizable()
+            
+            Image(systemName: showDeleteConfirmation ? "checkmark.circle.fill" : "circle")
                 .frame(width: 16, height: 16)
                 .onTapGesture {
                     if showDeleteConfirmation {
                         task.deleteTask()
                         categoryManager.checkEmptyTask(task.categoryID)
-                        categoryManager.save()
+                        categoryManager.saveLocal()
                     } else {
                         withAnimation {
                             showDeleteConfirmation = true
@@ -50,7 +52,8 @@ struct TaskView: View {
                     }
                 }
             NotificationView(task: task)
-                .environmentObject(NotificationManager.shared)
+                .environmentObject(notificationManager)
+                .environmentObject(categoryManager)
             TextField("New task", text: $task.name)
                 .background(Color.gray.opacity(0.2))
                 .focused($isFocusedOnTitle)
@@ -60,7 +63,7 @@ struct TaskView: View {
                         task.simplifyTitle()
                         categoryManager.sortTasksByDate(task.categoryID)
                         categoryManager.checkEmptyTask(task.categoryID)
-                        categoryManager.save()
+                        categoryManager.saveLocal()
                     }
                     else {
                         task.expandTitle()
@@ -71,25 +74,23 @@ struct TaskView: View {
                 .onChange(of: isFocusedOnCalendar, {
                     if isFocusedOnCalendar == false {
                         categoryManager.sortTasksByDate(task.categoryID)
-                        categoryManager.save()
+                        categoryManager.saveLocal()
                     }
                 })
         }
         
-        if showDeleteConfirmation {
-            Text("Click again to confirm")
-                .foregroundColor(.red)
-                .transition(.opacity)
-                .padding(.top, 8)
-        }
+//        if showDeleteConfirmation {
+//            Text("Click again to confirm")
+//                .foregroundColor(.red)
+//                .transition(.opacity)
+//                .padding(.top, 8)
+//        }
     }
 }
 
 #Preview {
-    let categoryManager = CategoryManager.shared
-    let category = Category()
-    let task = Task(categoryID: category.id)
-    return TaskView(task: task)
-        .environmentObject(categoryManager)
+    return TaskView(task: Task(categoryID: UUID()))
+        .environmentObject( CategoryManager.shared)
+        .environmentObject(NotificationManager.shared)
 }
 
