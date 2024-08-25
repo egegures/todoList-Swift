@@ -6,15 +6,26 @@
 //
 
 import SwiftUI
+import Firebase
+import FirebaseFirestore
 
 @main
 struct TodoListApp: App {
-    
+    @StateObject private var firebaseManager = FirebaseManager.shared
+    @StateObject private var categoryManager = CategoryManager.shared
+    @StateObject private var notificationManager = NotificationManager.shared
+    init() {
+        FirebaseApp.configure()
+        Firestore.firestore()
+    }
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .environmentObject(firebaseManager)
+                .environmentObject(categoryManager)
+                .environmentObject(notificationManager)
                 .onAppear(perform: {
-                     NotificationManager.shared.requestAuthorization()
+                    NotificationManager.shared.requestAuthorization()
                 })
         }
     }

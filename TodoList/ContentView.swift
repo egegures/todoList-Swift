@@ -7,8 +7,9 @@
 import SwiftUI
 
 struct ContentView: View {
-    @StateObject private var categoryManager = CategoryManager.shared
-    @StateObject private var firebaseManager = FirebaseManager.shared
+    @EnvironmentObject private var firebaseManager: FirebaseManager
+    @EnvironmentObject private var categoryManager: CategoryManager
+    @EnvironmentObject private var notificationManager: NotificationManager
     
     @State private var sideViewOpen: Bool = false
     
@@ -16,10 +17,13 @@ struct ContentView: View {
         HStack {
             SideView(isOpen: $sideViewOpen)
                 .environmentObject(firebaseManager)
+                .environmentObject(categoryManager)
             VStack {
                 HStack {
                     Button(action: {
-                        sideViewOpen.toggle()
+                        withAnimation {
+                            sideViewOpen.toggle()
+                        }
                     }, label: {
                         Image(systemName: "list.dash")
                             .imageScale(.large)
@@ -27,7 +31,7 @@ struct ContentView: View {
                     Spacer()
                     Button(action: {
                         categoryManager.addCategory()
-                        categoryManager.save()
+                        // categoryManager.saveLocal()
                     }, label: {
                         Text("New category")
                     })
@@ -45,4 +49,7 @@ struct ContentView: View {
 
 #Preview {
     ContentView()
+        .environmentObject(FirebaseManager.shared)
+        .environmentObject(CategoryManager.shared)
+        .environmentObject(NotificationManager.shared)
 }

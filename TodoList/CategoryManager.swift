@@ -12,32 +12,39 @@ class CategoryManager: ObservableObject {
     
     @Published var categories: [Category] = []
     
+    private let firebaseManager = FirebaseManager.shared
+    
     private init() {
         
         // Uncomment this to reset UserDefaults
+        //
+        //        UserDefaults.standard.dictionaryRepresentation().keys.forEach { key in
+        //            UserDefaults.standard.removeObject(forKey: key)
+        //        }
         
-//        UserDefaults.standard.dictionaryRepresentation().keys.forEach { key in
-//            UserDefaults.standard.removeObject(forKey: key)
-//        }
+        // Local load
+        //        if let data = UserDefaults.standard.data(forKey: "SavedData") {
+        //            if let decoded = try? JSONDecoder().decode([Category].self, from: data) {
+        //                categories = decoded
+        //            }
+        //        }
+        //        if categories.count == 0 {
+        //            addCategory()
+        //        }
         
-        
-        if let data = UserDefaults.standard.data(forKey: "SavedData") {
-            if let decoded = try? JSONDecoder().decode([Category].self, from: data) {
-                categories = decoded
-            }
-        }
-        if categories.count == 0 {
-            addCategory()
-        }
+        loadCloud() {}
+        print("CategoryManager initialized")
     }
     
     func addCategory() {
         let newCategory = Category()
         categories.append(newCategory)
+        firebaseManager.saveCategory(newCategory)
     }
     
     func deleteCategory(_ id: UUID) {
         if let index = categories.firstIndex(where: { $0.id == id }) {
+            firebaseManager.deleteCategory(categories[index])
             categories.remove(at: index)
         }
         if categories.count == 0 {
@@ -59,14 +66,15 @@ class CategoryManager: ObservableObject {
                 }
             }
             category.tasks.append(Task(categoryID: category.id))
+            firebaseManager.saveCategory(category)
         }
     }
     
-    func findNameFromID(_ id: UUID) -> String {
-        if let cat = categories.first(where: { $0.id == id }) {
-            return cat.name
+    func findCategoryFromID(categoryID: UUID) -> Category? {
+        if let cat = categories.first(where: { $0.id == categoryID }) {
+            return cat
         }
-        return "name not found"
+        return nil
     }
     
     func sortTasksByDate(_ catID: UUID) {
@@ -80,6 +88,7 @@ class CategoryManager: ObservableObject {
                 }                                                      // From
             }                                                          // Going
             cat.tasks.append(Task(categoryID: catID))                  // To Bottom
+            firebaseManager.saveCategory(cat)
         }
     }
     
@@ -87,13 +96,24 @@ class CategoryManager: ObservableObject {
         categories.sort(by: {$0.isFavourite && !$1.isFavourite})
     }
     
-    func save() {
+    func saveLocal() {
         if let encoded = try? JSONEncoder().encode(categories) {
-                UserDefaults.standard.set(encoded, forKey: "SavedData")
-            }
+            UserDefaults.standard.set(encoded, forKey: "SavedData")
+        }
     }
     
+    func loadCloud(completion: @escaping () -> Void) {
+        firebaseManager.fetchCategories { [weak self] fetchedCategories in
+            DispatchQueue.main.async {
+                self?.categories = fetchedCategories
+                completion()
+            }
+        }
+    }
     
-
+    func clearCategories() {
+        categories.removeAll()
+    }
+    
 }
 

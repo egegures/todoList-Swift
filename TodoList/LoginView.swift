@@ -10,17 +10,27 @@ import Combine
 struct LoginView: View {
     
     @EnvironmentObject var firebaseManager: FirebaseManager
+    @EnvironmentObject var categoryManager: CategoryManager
     
     @State private var email: String = ""
     @State private var password: String = ""
     @State private var showingAlert: Bool = false
     @State private var alertMessage: String = ""
-
+    
     @Binding var showLoginView: Bool
     
-    //TODO: Add text below buttons as "sign in/up successful", add x button top right that toggles showLoginView
+    @State private var signUpSuccesful: Bool = false
+    @State private var signInSuccessful: Bool = false
+    
     var body: some View {
         VStack {
+            HStack {
+                Spacer()
+                Text("X")
+                    .onTapGesture {
+                        showLoginView = false
+                    }
+            }
             Text("Email:")
             TextField("Email", text: $email)
                 .textContentType(.emailAddress)
@@ -44,19 +54,34 @@ struct LoginView: View {
                 })
                 .padding()
             }
+            
+            if signInSuccessful {
+                Text("Sign in successful, redirecting...")
+                    .foregroundStyle(Color.green)
+            }
+            if signUpSuccesful {
+                Text("Sign in successful, redirecting...")
+                    .foregroundStyle(Color.green)
+            }
         }
         .alert(isPresented: $showingAlert) {
             Alert(title: Text("Error"), message: Text(alertMessage), dismissButton: .default(Text("OK")))
         }
         .padding()
+        .frame(width: 250)
     }
     
     private func signUp() {
         firebaseManager.signUp(email: email, password: password) { result in
             switch result {
             case .success(_):
-                // Handle successful sign up (e.g., navigate to another view)
+                // Handle successful sign up
                 print("Sign up successful")
+                signUpSuccesful.toggle()
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: {
+                    showLoginView = false
+                    signUpSuccesful.toggle()
+                })
             case .failure(let error):
                 self.alertMessage = error.localizedDescription
                 self.showingAlert = true
@@ -68,8 +93,16 @@ struct LoginView: View {
         firebaseManager.signIn(email: email, password: password) { result in
             switch result {
             case .success(_):
-                // Handle successful sign in (e.g., navigate to another view)
+                // Handle successful sign in
                 print("Sign in successful")
+                signInSuccessful.toggle()
+                
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: {
+                    showLoginView = false
+                    signInSuccessful.toggle()
+                })
+                
+                categoryManager.loadCloud() {}
             case .failure(let error):
                 self.alertMessage = error.localizedDescription
                 self.showingAlert = true
@@ -82,4 +115,5 @@ struct LoginView: View {
     @State var bool: Bool = true
     return LoginView(showLoginView: $bool)
         .environmentObject(FirebaseManager.shared)
+        .environmentObject(CategoryManager.shared)
 }
