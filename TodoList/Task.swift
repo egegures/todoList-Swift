@@ -67,6 +67,7 @@ class Task: Identifiable, ObservableObject, Encodable, Decodable {
     func deleteTask() {
         categoryManager.deleteTask(self)
         Task.taskHistory.append(self)
+        FirebaseManager.shared.saveCategory(categoryManager.findCategoryFromID(categoryID: self.categoryID)!)
     }
     
     static func emptyTaskHistory() {

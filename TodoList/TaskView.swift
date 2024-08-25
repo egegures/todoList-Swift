@@ -39,7 +39,7 @@ struct TaskView: View {
                     if showDeleteConfirmation {
                         task.deleteTask()
                         categoryManager.checkEmptyTask(task.categoryID)
-                        categoryManager.saveLocal()
+                        // categoryManager.saveLocal()
                     } else {
                         withAnimation {
                             showDeleteConfirmation = true
@@ -54,6 +54,7 @@ struct TaskView: View {
             NotificationView(task: task)
                 .environmentObject(notificationManager)
                 .environmentObject(categoryManager)
+            
             TextField("New task", text: $task.name)
                 .background(Color.gray.opacity(0.2))
                 .focused($isFocusedOnTitle)
@@ -63,7 +64,7 @@ struct TaskView: View {
                         task.simplifyTitle()
                         categoryManager.sortTasksByDate(task.categoryID)
                         categoryManager.checkEmptyTask(task.categoryID)
-                        categoryManager.saveLocal()
+                        // categoryManager.saveLocal()
                     }
                     else {
                         task.expandTitle()
@@ -74,7 +75,7 @@ struct TaskView: View {
                 .onChange(of: isFocusedOnCalendar, {
                     if isFocusedOnCalendar == false {
                         categoryManager.sortTasksByDate(task.categoryID)
-                        categoryManager.saveLocal()
+                        // categoryManager.saveLocal()
                     }
                 })
         }

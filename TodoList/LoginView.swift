@@ -16,7 +16,7 @@ struct LoginView: View {
     @State private var password: String = ""
     @State private var showingAlert: Bool = false
     @State private var alertMessage: String = ""
-
+    
     @Binding var showLoginView: Bool
     
     @State private var signUpSuccesful: Bool = false
@@ -102,8 +102,7 @@ struct LoginView: View {
                     signInSuccessful.toggle()
                 })
                 
-                    categoryManager.loadCloud() {
-                        }
+                categoryManager.loadCloud() {}
             case .failure(let error):
                 self.alertMessage = error.localizedDescription
                 self.showingAlert = true

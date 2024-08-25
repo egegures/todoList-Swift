@@ -31,7 +31,7 @@ struct ContentView: View {
                     Spacer()
                     Button(action: {
                         categoryManager.addCategory()
-                        //categoryManager.saveLocal()
+                        // categoryManager.saveLocal()
                     }, label: {
                         Text("New category")
                     })

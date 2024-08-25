@@ -47,7 +47,7 @@ class Category: Identifiable, ObservableObject, Encodable, Decodable {
         CategoryManager.shared.deleteCategory(self.id)
     }
     
-    deinit {
-        deleteCategory()
-    }
+//    deinit {
+//        deleteCategory()
+//    }
 }

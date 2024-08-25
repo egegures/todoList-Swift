@@ -44,6 +44,7 @@ class CategoryManager: ObservableObject {
     
     func deleteCategory(_ id: UUID) {
         if let index = categories.firstIndex(where: { $0.id == id }) {
+            firebaseManager.deleteCategory(categories[index])
             categories.remove(at: index)
         }
         if categories.count == 0 {
@@ -69,11 +70,11 @@ class CategoryManager: ObservableObject {
         }
     }
     
-    func findNameFromID(_ id: UUID) -> String {
-        if let cat = categories.first(where: { $0.id == id }) {
-            return cat.name
+    func findCategoryFromID(categoryID: UUID) -> Category? {
+        if let cat = categories.first(where: { $0.id == categoryID }) {
+            return cat
         }
-        return "name not found"
+        return nil
     }
     
     func sortTasksByDate(_ catID: UUID) {

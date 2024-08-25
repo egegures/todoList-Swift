@@ -20,7 +20,7 @@ struct CategoryView: View {
                     .onTapGesture {
                         if showDeleteConfirmation {
                             category.deleteCategory()
-                            categoryManager.saveLocal()
+                            // categoryManager.saveLocal()
                         } else {
                             withAnimation {
                                 showDeleteConfirmation = true
@@ -42,7 +42,7 @@ struct CategoryView: View {
                     .onTapGesture {
                         category.isFavourite.toggle()
                         categoryManager.sortCategoriesByFavourite()
-                        categoryManager.saveLocal()
+                        // categoryManager.saveLocal()
                     }
             }
             

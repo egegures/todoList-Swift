@@ -34,7 +34,7 @@ struct NotificationView: View {
                     Button(action: { //Unset button
                         task.isNotificationSet = false
                         ncShared.removeNotification(task: task)
-                        categoryManager.saveLocal()
+                        // categoryManager.saveLocal()
                         withAnimation {
                             showMenu.toggle()
                         }
@@ -44,7 +44,7 @@ struct NotificationView: View {
                     
                     Button(action: { //Set button
                         task.isNotificationSet = ncShared.scheduleNotification(task: task, date: task.notificationDate)
-                        categoryManager.saveLocal()
+                        // categoryManager.saveLocal()
                         withAnimation {
                             showMenu.toggle()
                         }
