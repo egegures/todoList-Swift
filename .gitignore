@@ -1,24 +1,57 @@
-Google*
+# Swift Package Manager
+.build/
+Packages/
+Package.resolved
 
 # Xcode
-DerivedData/
-build/
 *.xcworkspace
-TodoList.xcodeproj/xcuserdata/
+*.xcuserdatad
 *.xcuserstate
+*.xcodeproj/project.xcworkspace/xcuserdata/
+*.xcodeproj/xcuserdata/
+*.xcodeproj/xcuserdata/*.xcuserdatad
+*.xcodeproj/xcuserdata/*.xcuserstate
+DerivedData/
+*.hmap
 
-# CocoaPods
+# Build artifacts
+build/
+*.app
+*.ipa
+*.dSYM
+*.o
+*.a
+*.dll
+*.so
+*.dylib
+
+# Cocoapods
 Pods/
 Podfile.lock
 
 # Carthage
 Carthage/Build/
+Carthage/Checkouts/
 
-# Swift Package Manager
-.swiftpm/
-.build/
+# SwiftUI previews
+*.preview
 
-# macOS
-.DS_Store
+# User-specific files
 *.swp
+*.swo
+*.DS_Store
+*.lock
 
+# Archives
+*.archive
+
+# Others
+*.log
+*.aux
+*.fls
+*.out
+*.toc
+
+# Ignore specific files
+# Uncomment and add specific files or folders to ignore them
+# /path/to/file_or_folder
