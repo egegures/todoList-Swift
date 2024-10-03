@@ -18,6 +18,7 @@ struct LoginView: View {
     @State private var alertMessage: String = ""
     
     @Binding var showLoginView: Bool
+    @Binding var showSideView: Bool
     
     @State private var signUpSuccesful: Bool = false
     @State private var signInSuccessful: Bool = false
@@ -80,6 +81,7 @@ struct LoginView: View {
                 signUpSuccesful.toggle()
                 DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: {
                     showLoginView = false
+                    showSideView = false
                     signUpSuccesful.toggle()
                 })
             case .failure(let error):
@@ -99,10 +101,12 @@ struct LoginView: View {
                 
                 DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: {
                     showLoginView = false
+                    showSideView = false
                     signInSuccessful.toggle()
                 })
                 
                 categoryManager.loadCloud() {}
+                firebaseManager.fetchTaskHistory() {}
             case .failure(let error):
                 self.alertMessage = error.localizedDescription
                 self.showingAlert = true
@@ -113,7 +117,7 @@ struct LoginView: View {
 
 #Preview {
     @State var bool: Bool = true
-    return LoginView(showLoginView: $bool)
+    return LoginView(showLoginView: $bool, showSideView: $bool)
         .environmentObject(FirebaseManager.shared)
         .environmentObject(CategoryManager.shared)
 }

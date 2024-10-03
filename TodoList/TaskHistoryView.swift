@@ -8,8 +8,28 @@
 import SwiftUI
 
 struct TaskHistoryView: View {
+    
+    var tasks = Task.taskHistory
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        VStack {
+            HStack {
+                Spacer()
+            }
+            ForEach(tasks) { task in
+                
+                Text("Task \(task.name) due \(dateFormatter(task.dueDate))")
+            }
+            Spacer()
+        }
+    }
+    
+    private func dateFormatter(_ date: Date) -> String{
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd.MM.yy HH:mm"
+        return dateFormatter.string(from: date)
+        
     }
 }
 

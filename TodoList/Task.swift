@@ -20,6 +20,7 @@ class Task: Identifiable, ObservableObject, Encodable, Decodable {
     static var taskHistory: [Task] = []
     
     private let categoryManager = CategoryManager.shared
+    private let firebaseManager = FirebaseManager.shared
     
     enum CodingKeys: String, CodingKey {
         case id
@@ -67,11 +68,13 @@ class Task: Identifiable, ObservableObject, Encodable, Decodable {
     func deleteTask() {
         categoryManager.deleteTask(self)
         Task.taskHistory.append(self)
-        FirebaseManager.shared.saveCategory(categoryManager.findCategoryFromID(categoryID: self.categoryID)!)
+        firebaseManager.saveCategory(categoryManager.findCategoryFromID(categoryID: self.categoryID)!)
+        firebaseManager.saveTaskHistory()
     }
     
-    static func emptyTaskHistory() {
+    static func clearTaskHistory() {
         Task.taskHistory.removeAll()
+        FirebaseManager.shared.saveTaskHistory()
     }
     
     private static func endOfDayDate() -> Date {

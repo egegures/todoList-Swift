@@ -32,7 +32,11 @@ class CategoryManager: ObservableObject {
         //            addCategory()
         //        }
         
-        loadCloud() {}
+        loadCloud() {
+            if self.categories.count == 0 {
+                self.addCategory()
+            }
+        }
         print("CategoryManager initialized")
     }
     

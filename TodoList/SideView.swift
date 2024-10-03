@@ -8,11 +8,13 @@ import SwiftUI
 
 struct SideView: View {
     @Binding var isOpen: Bool
+    @Binding var showingTaskHistoryView: Bool
     
     @EnvironmentObject private var firebaseManager: FirebaseManager
     @EnvironmentObject private var categoryManager: CategoryManager
     
     @State private var showingLoginView = false
+    
     var body: some View {
         ZStack {
             if isOpen {
@@ -43,9 +45,8 @@ struct SideView: View {
                             .padding(5)
                         }
                         
-                        
-                        Button("Task History") {
-                            // Navigate to Task History view
+                        Button(showingTaskHistoryView ? "Return to tasks" : "Task History") {
+                            showingTaskHistoryView.toggle()
                         }
                         .padding(5)
                         
@@ -54,8 +55,8 @@ struct SideView: View {
                     .transition(.move(edge: .leading))
                 }
                 .sheet(isPresented: $showingLoginView) {
-                    LoginView(showLoginView: $showingLoginView)
-                                }
+                    LoginView(showLoginView: $showingLoginView, showSideView: $isOpen)
+                }
             }
         }
         .frame(width: isOpen ? 120 : 0)
@@ -65,7 +66,7 @@ struct SideView: View {
 
 #Preview {
     @State var isOpen = true
-    return SideView(isOpen: $isOpen)
+    return SideView(isOpen: $isOpen, showingTaskHistoryView: $isOpen)
         .environmentObject(FirebaseManager.shared)
         .environmentObject(CategoryManager.shared)
 }

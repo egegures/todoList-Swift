@@ -12,10 +12,10 @@ struct ContentView: View {
     @EnvironmentObject private var notificationManager: NotificationManager
     
     @State private var sideViewOpen: Bool = false
-    
+    @State private var showingTaskHistoryView: Bool = false
     var body: some View {
         HStack {
-            SideView(isOpen: $sideViewOpen)
+            SideView(isOpen: $sideViewOpen, showingTaskHistoryView: $showingTaskHistoryView)
                 .environmentObject(firebaseManager)
                 .environmentObject(categoryManager)
             VStack {
@@ -29,16 +29,28 @@ struct ContentView: View {
                             .imageScale(.large)
                     })
                     Spacer()
-                    Button(action: {
-                        categoryManager.addCategory()
-                        // categoryManager.saveLocal()
-                    }, label: {
-                        Text("New category")
-                    })
+                    if showingTaskHistoryView {
+                        Button(action: {
+                            print("cleared")
+                        }, label: {
+                            Text("Clear Task History")
+                        })
+                    } else {
+                        Button(action: {
+                            categoryManager.addCategory()
+                            // categoryManager.saveLocal()
+                        }, label: {
+                            Text("New category")
+                        })
+                    }
                 }
-                List {
-                    ForEach(categoryManager.categories) { category in
-                        CategoryView(category: category)
+                if showingTaskHistoryView {
+                    TaskHistoryView()
+                } else {
+                    List {
+                        ForEach(categoryManager.categories) { category in
+                            CategoryView(category: category)
+                        }
                     }
                 }
             }

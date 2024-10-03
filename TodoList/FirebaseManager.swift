@@ -102,6 +102,28 @@ class FirebaseManager: ObservableObject {
         }
     }
     
+    func saveTaskHistory() {
+        guard let user = Auth.auth().currentUser else { return }
+        let userDocRef = db.collection("users").document(user.uid)
+        let taskHistoryRef = userDocRef.collection("taskHistory")
+        
+        do {
+            for task in Task.taskHistory {
+                let taskDocRef = taskHistoryRef.document(task.id.uuidString)
+                let encodedTask = try Firestore.Encoder().encode(task)
+                taskDocRef.setData(encodedTask) { error in
+                    if let error = error {
+                        print("Error saving task to history: \(error.localizedDescription)")
+                    } else {
+                        print("Task saved to history successfully!")
+                    }
+                }
+            }
+        } catch {
+            print("Error encoding task: \(error.localizedDescription)")
+        }
+    }
+    
     func fetchCategories(completion: @escaping ([Category]) -> Void) {
         guard let user = Auth.auth().currentUser else {
             completion([])
@@ -125,6 +147,34 @@ class FirebaseManager: ObservableObject {
                     }
                 }
                 completion(categories)
+            }
+        }
+    }
+    
+    func fetchTaskHistory(completion: @escaping () -> Void) {
+        guard let user = Auth.auth().currentUser else {
+            completion()
+            return
+        }
+        
+        let userDocRef = db.collection("users").document(user.uid)
+        
+        userDocRef.collection("taskHistory").getDocuments { snapshot, error in
+            if let error = error {
+                print("Error fetching task history: \(error.localizedDescription)")
+                completion()
+            } else {
+                var tasks: [Task] = []
+                snapshot?.documents.forEach { document in
+                    do {
+                        let task = try document.data(as: Task.self)
+                        tasks.append(task)
+                    } catch {
+                        print("Error decoding task: \(error.localizedDescription)")
+                    }
+                }
+                Task.taskHistory = tasks
+                completion()
             }
         }
     }
@@ -162,7 +212,7 @@ class FirebaseManager: ObservableObject {
             }
         }
     }
-
+    
     
     private func handleAuthError(_ error: Error) {
         if let authError = error as NSError? {

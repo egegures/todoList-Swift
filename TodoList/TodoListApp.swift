@@ -24,9 +24,10 @@ struct TodoListApp: App {
                 .environmentObject(firebaseManager)
                 .environmentObject(categoryManager)
                 .environmentObject(notificationManager)
-                .onAppear(perform: {
+                .onAppear {
                     NotificationManager.shared.requestAuthorization()
-                })
+                    categoryManager.loadCloud {}
+                }
         }
     }
 }
