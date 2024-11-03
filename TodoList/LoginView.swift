@@ -112,6 +112,7 @@ struct LoginView: View {
 }
 
 #Preview {
+    @Previewable
     @State var bool: Bool = true
     return LoginView(showLoginView: $bool)
         .environmentObject(FirebaseManager.shared)
