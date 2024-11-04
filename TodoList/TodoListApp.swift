@@ -28,6 +28,9 @@ struct TodoListApp: App {
                     NotificationManager.shared.requestAuthorization()
                     categoryManager.loadCloud {}
                 }
+                .onDisappear() {
+                    NSApplication.shared.terminate(nil)
+                }
         }
     }
 }

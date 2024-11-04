@@ -65,6 +65,7 @@ struct SideView: View {
 
 
 #Preview {
+    @Previewable
     @State var isOpen = true
     return SideView(isOpen: $isOpen, showingTaskHistoryView: $isOpen)
         .environmentObject(FirebaseManager.shared)
