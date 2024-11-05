@@ -8,6 +8,7 @@
 import SwiftUI
 import Firebase
 import FirebaseFirestore
+import FirebaseCore
 
 @main
 struct TodoListApp: App {
@@ -34,3 +35,4 @@ struct TodoListApp: App {
         }
     }
 }
+

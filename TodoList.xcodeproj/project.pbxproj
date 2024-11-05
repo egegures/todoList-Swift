@@ -15,10 +15,10 @@
 		2503D1B52C74901E00029E20 /* TodoListWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 2503D1A42C74901C00029E20 /* TodoListWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		2503D1BB2C754D0D00029E20 /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2503D1BA2C754D0D00029E20 /* NotificationManager.swift */; };
 		2503D1BF2C75502E00029E20 /* NotificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2503D1BE2C75502E00029E20 /* NotificationView.swift */; };
+		2503FA762CD99D0D007AB2E3 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2503FA752CD99D0D007AB2E3 /* GoogleService-Info.plist */; };
 		254A7AD02C76814000E36624 /* SideView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 254A7ACF2C76814000E36624 /* SideView.swift */; };
 		254A7AD22C76814800E36624 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 254A7AD12C76814800E36624 /* LoginView.swift */; };
 		254A7AD42C76827200E36624 /* FirebaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 254A7AD32C76827200E36624 /* FirebaseManager.swift */; };
-		254A7AD62C76834B00E36624 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 254A7AD52C76834B00E36624 /* GoogleService-Info.plist */; };
 		254A7AD92C76838A00E36624 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 254A7AD82C76838A00E36624 /* FirebaseAnalytics */; };
 		254A7ADB2C76838A00E36624 /* FirebaseAnalyticsOnDeviceConversion in Frameworks */ = {isa = PBXBuildFile; productRef = 254A7ADA2C76838A00E36624 /* FirebaseAnalyticsOnDeviceConversion */; };
 		254A7ADD2C76838A00E36624 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 254A7ADC2C76838A00E36624 /* FirebaseAuth */; };
@@ -90,10 +90,10 @@
 		2503D1B22C74901E00029E20 /* TodoListWidget.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = TodoListWidget.entitlements; sourceTree = "<group>"; };
 		2503D1BA2C754D0D00029E20 /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
 		2503D1BE2C75502E00029E20 /* NotificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationView.swift; sourceTree = "<group>"; };
+		2503FA752CD99D0D007AB2E3 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		254A7ACF2C76814000E36624 /* SideView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideView.swift; sourceTree = "<group>"; };
 		254A7AD12C76814800E36624 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		254A7AD32C76827200E36624 /* FirebaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseManager.swift; sourceTree = "<group>"; };
-		254A7AD52C76834B00E36624 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		256912AF2C7DD8E0008BBCAA /* TaskHistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskHistoryView.swift; sourceTree = "<group>"; };
 		25D0062A2C72852E00E28959 /* CalendarTimeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarTimeView.swift; sourceTree = "<group>"; };
 		25D8D51F2C6124290075B42A /* TodoList.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TodoList.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -199,7 +199,7 @@
 		25D8D5212C6124290075B42A /* TodoList */ = {
 			isa = PBXGroup;
 			children = (
-				254A7AD52C76834B00E36624 /* GoogleService-Info.plist */,
+				2503FA752CD99D0D007AB2E3 /* GoogleService-Info.plist */,
 				25D8D5222C6124290075B42A /* TodoListApp.swift */,
 				25D8D5242C6124290075B42A /* ContentView.swift */,
 				25D8D5262C61242B0075B42A /* Assets.xcassets */,
@@ -383,7 +383,7 @@
 			files = (
 				25D8D52B2C61242B0075B42A /* Preview Assets.xcassets in Resources */,
 				25D8D5272C61242B0075B42A /* Assets.xcassets in Resources */,
-				254A7AD62C76834B00E36624 /* GoogleService-Info.plist in Resources */,
+				2503FA762CD99D0D007AB2E3 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

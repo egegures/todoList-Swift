@@ -102,26 +102,27 @@ class FirebaseManager: ObservableObject {
         }
     }
     
+    // TODO: Fix task history, currently missing permissions 
     func saveTaskHistory() {
-        guard let user = Auth.auth().currentUser else { return }
-        let userDocRef = db.collection("users").document(user.uid)
-        let taskHistoryRef = userDocRef.collection("taskHistory")
-        
-        do {
-            for task in Task.taskHistory {
-                let taskDocRef = taskHistoryRef.document(task.id.uuidString)
-                let encodedTask = try Firestore.Encoder().encode(task)
-                taskDocRef.setData(encodedTask) { error in
-                    if let error = error {
-                        print("Error saving task to history: \(error.localizedDescription)")
-                    } else {
-                        print("Task saved to history successfully!")
-                    }
-                }
-            }
-        } catch {
-            print("Error encoding task: \(error.localizedDescription)")
-        }
+//        guard let user = Auth.auth().currentUser else { return }
+//        let userDocRef = db.collection("users").document(user.uid)
+//        let taskHistoryRef = userDocRef.collection("taskHistory")
+//        
+//        do {
+//            for task in Task.taskHistory {
+//                let taskDocRef = taskHistoryRef.document(task.id.uuidString)
+//                let encodedTask = try Firestore.Encoder().encode(task)
+//                taskDocRef.setData(encodedTask) { error in
+//                    if let error = error {
+//                        print("Error saving task to history: \(error.localizedDescription)")
+//                    } else {
+//                        print("Task saved to history successfully!")
+//                    }
+//                }
+//            }
+//        } catch {
+//            print("Error encoding task: \(error.localizedDescription)")
+//        }
     }
     
     func fetchCategories(completion: @escaping ([Category]) -> Void) {
