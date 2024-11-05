@@ -52,6 +52,7 @@ Carthage/Checkouts/
 *.out
 *.toc
 
+TodoList/GoogleService-Info.plist
 # Ignore specific files
 # Uncomment and add specific files or folders to ignore them
 # /path/to/file_or_folder

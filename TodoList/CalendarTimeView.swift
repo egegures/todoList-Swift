@@ -13,7 +13,10 @@ struct CalendarTimeView: View {
     var body: some View {
         DatePicker("", selection: $task.dueDate)
             .labelsHidden()
-
+            .scaleEffect(0.7)
+            .padding(5)
+            .frame(width: 80, height: 30)
+            .font(.system(size: 12))
     }
 }
 

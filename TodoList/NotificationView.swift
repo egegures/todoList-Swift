@@ -13,23 +13,16 @@ struct NotificationView: View {
     @EnvironmentObject var ncShared: NotificationManager
     @EnvironmentObject var categoryManager: CategoryManager
     
-    @State private var showMenu: Bool = false
+    @Binding var showMenu: Bool
     
     var body: some View {
-        Image(systemName: (task.isNotificationSet ? "bell.fill" : "bell"))
-            .onTapGesture {
-                withAnimation {
-                    showMenu.toggle()
-                    if !task.isNotificationSet {
-                        task.notificationDate = task.dueDate
-                    }
-                }
-            }
-        if showMenu {
+//        if showMenu {
             VStack {
-                Text("Set notification")
+                Text("When would you like to be notified? ")
+                    .fontWeight(.bold)
                 DatePicker("", selection: $task.notificationDate)
                     .labelsHidden()
+                    .datePickerStyle(GraphicalDatePickerStyle())
                 HStack {
                     Button(action: { //Unset button
                         task.isNotificationSet = false
@@ -52,13 +45,15 @@ struct NotificationView: View {
                         Text("Set")
                     })
                 }
-            }
+//            }
         }
     }
 }
 
 #Preview {
-    return NotificationView(task: Task(categoryID: UUID()))
+    @Previewable
+    @State var showMenu: Bool = true
+    NotificationView(task: Task(categoryID: UUID()), showMenu: $showMenu)
         .environmentObject(NotificationManager.shared)
         .environmentObject(CategoryManager.shared)
 }

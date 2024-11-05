@@ -51,6 +51,13 @@ struct CategoryView: View {
                     .environmentObject(categoryManager)
             }
         }
+        .swipeActions(content: {
+            Button(role: .destructive) {
+                category.deleteCategory()
+            } label: {
+                Label("Delete", systemImage: "trash")
+            }
+        })
         if showDeleteConfirmation {
             Text("Click again to confirm")
                 .foregroundColor(.red)
@@ -59,10 +66,12 @@ struct CategoryView: View {
         }
         
     }
+    
 }
 
 #Preview {
     CategoryView(category: Category())
         .environmentObject(CategoryManager.shared)
+        .environmentObject(NotificationManager.shared)
 }
 

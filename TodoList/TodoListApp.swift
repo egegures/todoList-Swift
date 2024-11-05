@@ -29,7 +29,7 @@ struct TodoListApp: App {
                     categoryManager.loadCloud {}
                 }
                 .onDisappear() {
-                    NSApplication.shared.terminate(nil)
+                    // NSApplication.shared.terminate(nil)
                 }
         }
     }

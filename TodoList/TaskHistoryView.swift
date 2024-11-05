@@ -18,7 +18,7 @@ struct TaskHistoryView: View {
             }
             ForEach(tasks) { task in
                 
-                Text("Task \(task.name) due \(dateFormatter(task.dueDate))")
+                Text("\(task.name) due \(dateFormatter(task.dueDate))")
             }
             Spacer()
         }
